@@ -40,7 +40,7 @@ with open("APPR_Fulton_Scored_Data.csv", "rb") as file:
     )
 
 st.write("### Data preview:")
-st.dataframe(df.head())
+st.dataframe(df.head(100))
 
 # --- Define features and target ---
 features = [
