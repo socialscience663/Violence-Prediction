@@ -25,8 +25,12 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.success("✅ Custom file uploaded and loaded.")
 else:
-    df = pd.read_csv("APPR_Fulton_Scored_Data.csv")
-    st.info("ℹ️ No file uploaded. Using default dataset.")
+    try:
+        df = pd.read_csv("APPR_Fulton_Scored_Data.csv")
+        st.success("ℹ️ No file uploaded. Using default dataset.")
+    except Exception as e:
+        st.error(f"Error loading dataset: {e}")
+        st.stop()
 
 df = df[df['release'] == 1]  # Released individuals only
 
@@ -40,7 +44,7 @@ with open("APPR_Fulton_Scored_Data.csv", "rb") as file:
     )
 
 st.write("### Data preview:")
-st.dataframe(df.head(100))
+st.dataframe(df.head())
 
 # --- Define features and target ---
 features = [
